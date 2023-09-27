@@ -39,7 +39,7 @@
 // changed to reflect the hardware type that the code is actually
 // being compiled for.
 #ifndef HARDWARE_TYPE
-#define HARDWARE_TYPE                   HARDWARE_TYPE_UNKNOWN
+#define HARDWARE_TYPE                   HARDWARE_TYPE_FUTABA_S3003
 #endif
 
 // By default the target platform is unknown, and is defined to be an
@@ -126,14 +126,14 @@
 #define ROLLING_SUBTYPE             1
 #endif
 
-// Enable (1) or disable (0) The Standard PWM module. The 
+// Enable (1) or disable (0) The Standard PWM module. The
 // "standard" PWM module is the same used in the Version 2 OpenServo
 // and the most compatible
 #ifndef PWM_STD_ENABLED
 #define PWM_STD_ENABLED             1
 #endif
 
-// Enable (1) or disable (0) The Enhanced Version 3 style PWM 
+// Enable (1) or disable (0) The Enhanced Version 3 style PWM
 // module control.
 #ifndef PWM_ENH_ENABLED
 //quick check to make sure it is not enabled is standard is enabled.
@@ -145,7 +145,7 @@
 #endif
 
 // Enable (1) or disable (0) The Stepper motor controller interface.
-// This allows for a standard unipolar stepper motor to connect to 
+// This allows for a standard unipolar stepper motor to connect to
 // a suitable interface.
 #ifndef STEP_ENABLED
 #define STEP_ENABLED                0
@@ -157,7 +157,7 @@
 #endif
 
 #ifndef ALERT_INTN_ENABLED
-#define ALERT_INTN_ENABLED          0
+#define ALERT_INTN_ENABLED          1
 #endif
 
 /*
@@ -229,19 +229,19 @@
 
 // Define the compare register value to generate a timer interrupt and initiate
 // an ADC sample every 9.987 milliseconds and yield a 100.1603 Hz sample rate.
-#ifndef CRVALUE 
+#ifndef CRVALUE
 #define CRVALUE		78
 #endif
 
 #endif //ADC_ENABLED
 
 // Define the frequency of the system heartbeat.
-#ifndef HEARTBEAT_INTERVAL_VALUE 
+#ifndef HEARTBEAT_INTERVAL_VALUE
 #define HEARTBEAT_INTERVAL_VALUE  10
 #endif
 
 // Set a CPU speed. Assume 8mhz
-#ifndef F_CPU 
+#ifndef F_CPU
 #define F_CPU 8000000L
 #endif
 

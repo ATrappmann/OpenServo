@@ -254,7 +254,7 @@ int main (void)
     // Initialise the stepper motor
     step_init();
 #endif
-    
+
     // Initialize the ADC module.
     adc_init();
 
@@ -351,7 +351,7 @@ int main (void)
             // General call support
             // Check to see if we have the wait flag enabled. If so save the new position, and write in the
             // old position until we get the move command
-            if (general_call_enabled()) 
+            if (general_call_enabled())
             {
                 //we need to wait for the go command before moving
                 if (general_call_wait())
@@ -367,11 +367,11 @@ int main (void)
                 last_seek_position = registers_read_word(REG_SEEK_POSITION_HI, REG_SEEK_POSITION_LO);
 
                 //check to make sure that we can start the move.
-                if (general_call_start() || 
+                if (general_call_start() ||
                     ( registers_read_byte(REG_GENERAL_CALL_GROUP_START) == banks_read_byte(CONFIG_BANK, REG_GENERAL_CALL_GROUP)))
                 {
                     // write the new position with the previously saved position
-                    registers_write_word(REG_SEEK_POSITION_HI, REG_SEEK_POSITION_LO, new_seek_position);  
+                    registers_write_word(REG_SEEK_POSITION_HI, REG_SEEK_POSITION_LO, new_seek_position);
                     general_call_start_wait_reset();  // reset the wait flag
                     general_call_start_reset();  // reset the start flag
                 }
@@ -402,8 +402,8 @@ int main (void)
 #endif
 
         }
-    
-    
+
+
         // Wait for the samples to complete
 #if TEMPERATURE_ENABLED
         if (adc_temperature_value_is_ready())
@@ -451,7 +451,7 @@ int main (void)
 
                     // Turn the motor back on
                     backemf_restore_motor();
-		    emf_motor_is_coasting = 0;
+		                emf_motor_is_coasting = 0;
                 }
             }
 #endif
@@ -479,7 +479,7 @@ int main (void)
             step_update(position, pwm);
 #endif
         }
-    
+
         // Was a command recieved?
         if (twi_data_in_receive_buffer())
         {

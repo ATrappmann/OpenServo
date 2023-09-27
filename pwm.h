@@ -1,6 +1,6 @@
 /*
     Copyright (c) 2006 Michael P. Thompson <mpthompson@gmail.com>
-        Portions of this code 
+        Portions of this code
     Copyright (c) 2007 Barry Carter <barry.carter@gmail.com>
 
 
@@ -64,7 +64,7 @@ inline static void pwm_brake_enable(void)
     uint8_t flags_lo = registers_read_byte(REG_FLAGS_LO);
 
     // Enable Hardware brake
-    registers_write_byte(REG_FLAGS_LO, flags_lo | (1<<FLAGS_LO_GENERALCALL_ENABLED));
+    registers_write_byte(REG_FLAGS_LO, flags_lo | (1<<FLAGS_LO_PWM_BREAK_ENABLED));
 }
 
 
@@ -73,7 +73,7 @@ inline static void pwm_brake_disable(void)
     uint8_t flags_lo = registers_read_byte(REG_FLAGS_LO);
 
     // Disable hardware brake.
-    registers_write_byte(REG_FLAGS_LO, flags_lo & ~(1<<FLAGS_LO_GENERALCALL_ENABLED));
+    registers_write_byte(REG_FLAGS_LO, flags_lo & ~(1<<FLAGS_LO_PWM_BREAK_ENABLED));
 }
 #else
 #include "pwm-std.h"

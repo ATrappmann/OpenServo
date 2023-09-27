@@ -89,6 +89,12 @@
 // Default maximum PWM value as percentage
 #define DEFAULT_PWM_MAX                  100
 
+// Default alert values
+#define DEFAULT_VOLT_MAX_LIMIT          1020  // 7.4V (full LiPo)
+#define DEFAULT_VOLT_MIN_LIMIT           682  // 682 for 5V (testing), 818 for 6V (empty LiPo)
+#define DEFAULT_TEMP_MAX_LIMIT           281  // 50°C
+#define DEFAULT_CURR_MAX_LIMIT          1020  // 2A
+
 #elif (HARDWARE_TYPE == HARDWARE_TYPE_HITEC_HS_475HB)
 
 // Hitec HS-475HB hardware default PID gains.

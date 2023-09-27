@@ -1,24 +1,24 @@
 /*
     Copyright (c) 2007 Barry Carter <Barry.Carter@gmail.com>
 
-    Permission is hereby granted, free of charge, to any person 
-    obtaining a copy of this software and associated documentation 
-    files (the "Software"), to deal in the Software without 
-    restriction, including without limitation the rights to use, copy, 
-    modify, merge, publish, distribute, sublicense, and/or sell copies 
-    of the Software, and to permit persons to whom the Software is 
+    Permission is hereby granted, free of charge, to any person
+    obtaining a copy of this software and associated documentation
+    files (the "Software"), to deal in the Software without
+    restriction, including without limitation the rights to use, copy,
+    modify, merge, publish, distribute, sublicense, and/or sell copies
+    of the Software, and to permit persons to whom the Software is
     furnished to do so, subject to the following conditions:
 
-    The above copyright notice and this permission notice shall be 
+    The above copyright notice and this permission notice shall be
     included in all copies or substantial portions of the Software.
 
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
-    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
-    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
-    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
     DEALINGS IN THE SOFTWARE.
 
     $Id$
@@ -32,7 +32,7 @@
     NOTE: it is up to the host to reset the alert flags in the register
     manually after any pending operations are completed.
 
-    Also note that these registers are not saved to eeprom over a reboot, 
+    Also note that these registers are not saved to eeprom over a reboot,
     and are zero'ed on init. When set to 0 they are ineffective and ignored.
 */
 
@@ -70,7 +70,7 @@ void alert_init(void)
 
     // Set all alert interrupts on INTn enabled
     banks_write_byte(ALERT_CONFIG_BANK, REG_ALERT_CAUSES_INT, 0xFF);
-    
+
 #endif
 }
 
@@ -78,12 +78,12 @@ void alert_defaults(void)
 // Reset safe read/write registers to defaults.
 {
     // put your default bank data here
-    banks_write_word(ALERT_CONFIG_BANK, ALERT_VOLT_MAX_LIMIT_HI, ALERT_VOLT_MAX_LIMIT_LO, 0);
-    banks_write_word(ALERT_CONFIG_BANK, ALERT_VOLT_MIN_LIMIT_HI, ALERT_VOLT_MIN_LIMIT_LO, 0);
+    banks_write_word(ALERT_CONFIG_BANK, ALERT_VOLT_MAX_LIMIT_HI, ALERT_VOLT_MAX_LIMIT_LO, DEFAULT_VOLT_MAX_LIMIT);
+    banks_write_word(ALERT_CONFIG_BANK, ALERT_VOLT_MIN_LIMIT_HI, ALERT_VOLT_MIN_LIMIT_LO, DEFAULT_VOLT_MIN_LIMIT);
 
-    banks_write_word(ALERT_CONFIG_BANK, ALERT_TEMP_MAX_LIMIT_HI, ALERT_TEMP_MAX_LIMIT_LO, 0);
+    banks_write_word(ALERT_CONFIG_BANK, ALERT_TEMP_MAX_LIMIT_HI, ALERT_TEMP_MAX_LIMIT_LO, DEFAULT_TEMP_MAX_LIMIT);
 
-    banks_write_word(ALERT_CONFIG_BANK, ALERT_CURR_MAX_LIMIT_HI, ALERT_CURR_MAX_LIMIT_LO, 0);
+    banks_write_word(ALERT_CONFIG_BANK, ALERT_CURR_MAX_LIMIT_HI, ALERT_CURR_MAX_LIMIT_LO, DEFAULT_CURR_MAX_LIMIT);
 
     // Set all alerts enabled
     banks_write_byte(ALERT_CONFIG_BANK, REG_ALERT_ENABLE, 0xFF);
@@ -142,7 +142,7 @@ void alert_check(void)
             alert_setbit(ALERT_UNDERVOLT);
         }
     }
-    
+
     // Check the curent is not over the maximum set current. Ignore if 0
     // NOTE: This would be a good place to throttle the current if we want to
     if (current > max_current
@@ -182,7 +182,7 @@ void alert_check(void)
 
     // check if we can lower the interrupt pins
     alert_int_low();
-    
+
     // If we are throttling on an alert, then decrement the counter.
     // This is so that the throttle is not permanent, and will gradually
     // fade away until the throttle is off.

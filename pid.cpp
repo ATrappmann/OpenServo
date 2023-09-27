@@ -174,7 +174,7 @@ int16_t pid_position_to_pwm(int16_t current_position)
     {
         // Apply the proportional component of the PWM output.
         pwm_output += (int32_t) p_component * (int32_t) p_gain;
-
+    } else {
         // Reset the speed portion of the motion to zero when in deadband. Stops D error increasing.
         seek_velocity = 0;
     }
@@ -203,4 +203,3 @@ int16_t pid_position_to_pwm(int16_t current_position)
     // Return the PID output.
     return (int16_t) pwm_output;
 }
-

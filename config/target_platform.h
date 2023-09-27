@@ -62,6 +62,6 @@
 // being compiled for. You can add new hardware and edit parameters
 // by using the servo_hardware.h and motor_hardware.h files, which 
 // define the type of motor you are using.
-#define HARDWARE_TYPE                   HARDWARE_TYPE_UNKNOWN
+#define HARDWARE_TYPE                   HARDWARE_TYPE_FUTABA_S3003
 
 #endif

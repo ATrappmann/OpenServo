@@ -39,7 +39,7 @@
 // changed to reflect the hardware type that the code is actually
 // being compiled for.
 #ifndef HARDWARE_TYPE
-#define HARDWARE_TYPE                   HARDWARE_TYPE_FUTABA_S3003
+#define HARDWARE_TYPE                   HARDWARE_TYPE_UNKNOWN
 #endif
 
 // By default the target platform is unknown, and is defined to be an

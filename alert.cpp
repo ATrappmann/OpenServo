@@ -77,7 +77,7 @@ void alert_init(void)
 void alert_defaults(void)
 // Reset safe read/write registers to defaults.
 {
-    // put your default bank data here
+    //AT: put your default bank data here
     banks_write_word(ALERT_CONFIG_BANK, ALERT_VOLT_MAX_LIMIT_HI, ALERT_VOLT_MAX_LIMIT_LO, DEFAULT_VOLT_MAX_LIMIT);
     banks_write_word(ALERT_CONFIG_BANK, ALERT_VOLT_MIN_LIMIT_HI, ALERT_VOLT_MIN_LIMIT_LO, DEFAULT_VOLT_MIN_LIMIT);
 

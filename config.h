@@ -175,9 +175,10 @@
 // Enabling this function introduces an off period of the PWM
 // output which means you will need to recalibrate the PID and PWM
 // module variables.
-#ifdef ADC_CHANNEL_BACKEMF
-#define BACKEMF_ENABLED             1
-#endif
+//AT: Definition in config/pindefs_OSv3.h
+//#ifdef ADC_CHANNEL_BACKEMF
+//#define BACKEMF_ENABLED             1
+//#endif
 
 // Enable (1) or disable (0) The board mounted thermometer.
 #ifdef ADC_CHANNEL_TEMPERATURE

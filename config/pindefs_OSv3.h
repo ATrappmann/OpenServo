@@ -27,9 +27,9 @@
 #define _OS_PINDEFS_H_ 1
 
 /*
- * Configuration file for the OpenServo Version 3 module, which has 
+ * Configuration file for the OpenServo Version 3 module, which has
  * independant PWM driver control and back EMF support.
- * The configuration file below controls which elements are enabled 
+ * The configuration file below controls which elements are enabled
  * for this platform. Most options override the defaults so we need
  * not include them all.
  */
@@ -44,7 +44,8 @@
  * to do a sample of the power. Be sure to define PWM_PIN_SMPLx
  * and use enhanced PWM.
  */
-#define BACKEMF_ENABLED   1
+//AT: Disable for testing with LEDs instead of motor
+#define BACKEMF_ENABLED   0
 
 /*
  * Config for the PWM control output pins

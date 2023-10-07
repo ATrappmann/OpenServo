@@ -39,12 +39,11 @@
 #define PWM_ENH_ENABLED   1
 #define STEP_ENABLED      0
 
-/* This is entirely optional, but is on by deault. This will cause
+/* This is entirely optional, but is on by default. This will cause
  * a slight slowdown of your motor as it switches it off every x ms
  * to do a sample of the power. Be sure to define PWM_PIN_SMPLx
  * and use enhanced PWM.
  */
-//AT: Disable for testing with LEDs instead of motor
 #define BACKEMF_ENABLED   0
 
 /*

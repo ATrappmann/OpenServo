@@ -53,7 +53,7 @@ volatile uint8_t adc_power_ready;
 volatile uint16_t adc_power_value;
 volatile uint8_t adc_position_ready;
 volatile uint16_t adc_position_value;
-#if BACKEMF_ENABLED
+#if ADC_BACKEMF_ENABLED
 volatile uint8_t adc_backemf_ready;
 volatile uint16_t adc_backemf_value;
 #endif
@@ -70,7 +70,7 @@ void adc_init(void)
     adc_power_value = 0;
     adc_position_ready = 0;
     adc_position_value = 0; 
-#if BACKEMF_ENABLED
+#if ADC_BACKEMF_ENABLED
     adc_backemf_ready = 0;
     adc_backemf_value = 0;
 #endif
@@ -201,7 +201,7 @@ ISR(ADC_vect)
 
             break;
 #endif
-#if BACKEMF_ENABLED
+#if ADC_BACKEMF_ENABLED
         case ADC_CHANNEL_BACKEMF:
 
             adc_backemf_ready = 1;

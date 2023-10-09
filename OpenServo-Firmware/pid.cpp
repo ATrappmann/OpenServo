@@ -33,6 +33,10 @@
 #include "banks.h"
 #include "filter.h"
 
+#ifndef abs
+#define abs(x) ((x)>0?(x):-(x))
+#endif
+
 // The minimum and maximum servo position as defined by 10-bit ADC values.
 #define MIN_POSITION            (0)
 #define MAX_POSITION            (1023)
@@ -170,13 +174,13 @@ int16_t pid_position_to_pwm(int16_t current_position)
     pwm_output = 0;
 
     // Apply proportional component to the PWM output if outside the deadband.
-    if ((p_component > deadband) || (p_component < -deadband))
+    if (abs(p_component) > deadband)
     {
         // Apply the proportional component of the PWM output.
         pwm_output += (int32_t) p_component * (int32_t) p_gain;
     } else {
         // Reset the speed portion of the motion to zero when in deadband. Stops D error increasing.
-        seek_velocity = 0;
+        seek_velocity = 0; // = current_velocity
     }
 
     // The derivative component to the PID is the velocity.

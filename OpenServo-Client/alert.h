@@ -1,0 +1,6 @@
+// alert bits
+#define ALERT_OVERCURR  0
+#define ALERT_OVERVOLT  1
+#define ALERT_UNDERVOLT 2
+#define ALERT_OVERTEMP  3
+#define ALERT_POSITION_REACHED 4

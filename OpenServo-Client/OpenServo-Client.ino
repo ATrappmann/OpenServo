@@ -1,9 +1,10 @@
-// NAME: OpenServoClientV3-dev
+// NAME: OpenServo-TestClient
 
 #include <Wire.h>
 #include "registers.h"
 #include "banks.h"
 #include "commands.h"
+#include "alert.h"
 
 #define ALARM_PIN   12    // MISO
 
@@ -185,6 +186,17 @@ uint16_t bankReadWord(uint8_t bank, uint8_t addr) {
   return uint16_t(hi)<<8 | lo;
 }
 
+void printAlertStatus() {
+  uint8_t alertStatus = bankReadByte(ALERT_BANK, ALERT_STATUS);
+  Serial.print(F("Status: %")); Serial.print(alertStatus, BIN);
+  if (alertStatus & (1 << ALERT_OVERCURR)) Serial.print(F(" OverCurr"));
+  if (alertStatus & (1 << ALERT_OVERVOLT)) Serial.print(F(" OverVolt"));
+  if (alertStatus & (1 << ALERT_UNDERVOLT)) Serial.print(F(" UnderVolt"));
+  if (alertStatus & (1 << ALERT_OVERTEMP)) Serial.print(F(" OverTemp"));
+  if (alertStatus & (1 << ALERT_POSITION_REACHED)) Serial.print(F(" PositionReached"));
+  Serial.println();  
+}
+
 void printAlertRegisters() {
   uint16_t maxVolt = bankReadWord(ALERT_CONFIG_BANK, ALERT_VOLT_MAX_LIMIT_HI);
   uint16_t minVolt = bankReadWord(ALERT_CONFIG_BANK, ALERT_VOLT_MIN_LIMIT_HI);
@@ -269,6 +281,10 @@ void setPosition(uint16_t position) {
   setRegisterWord(REG_SEEK_POSITION_HI, position);
 }
 
+void setVelocity(uint16_t velocity) {
+  setRegisterWord(REG_SEEK_VELOCITY_HI, velocity);
+}
+
 void setPID_PGain(uint16_t pgain) {
   setRegisterWord(REG_PID_PGAIN_HI, pgain);
 }
@@ -319,12 +335,16 @@ void setup() {
 
   Serial.println(F("Set position..."));
   setPosition(512);
-
+  setVelocity(512);
+  
   Serial.println(F("Running..."));
 }
 
 void loop() {
-  Serial.print(F("Alert: ")); Serial.println(digitalRead(ALARM_PIN));
+  if (digitalRead(ALARM_PIN)) {
+    Serial.print(F("ALERT: ")); printAlertStatus();
+  }
+  
   printRegisters();
   Serial.println(F("---------------"));
   delay(1000);

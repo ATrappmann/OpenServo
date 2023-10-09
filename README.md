@@ -16,9 +16,9 @@ this board are found in the file `V3-Single-PCB-Gerber.zip`.
 The **OpenServo-Firmware** is cloned from https://github.com/ginge/OpenServo/tree/master/OpenServo/AVR_OpenServo_V3-dev
 and customized to my needs, bug fixing and cleanup.
 
-## OpenServo Testclient
+## OpenServo Client
 
-The **OpenServo-Testclient** is a test client for the **OpenServo Firmware**.
+The **OpenServo-Client** is a test client for the **OpenServo-Firmware**.
 Due to a lack of documentation some things have to be rediscovered and tested.
 
 ## OpenServo Arduino Library

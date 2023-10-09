@@ -49,6 +49,10 @@
 #include "banks.h"
 #include "alert.h"
 
+#ifndef abs
+#define abs(x) ((x)>0?(x):-(x))
+#endif
+
 #if ALERT_ENABLED
 
 static uint16_t throttle;
@@ -105,8 +109,8 @@ void alert_check(void)
     uint16_t min_voltage;
     uint16_t max_current;
     uint16_t max_temperature;
-    uint16_t cur_position;
-    uint16_t seek_position;
+    int16_t cur_position;
+    int16_t seek_position;
 
     // Save cycles by returning here if we are disabled.
     if ((banks_read_byte(ALERT_CONFIG_BANK, REG_ALERT_ENABLE) == 0)
@@ -126,8 +130,8 @@ void alert_check(void)
 
     max_current = banks_read_word(ALERT_CONFIG_BANK, ALERT_CURR_MAX_LIMIT_HI, ALERT_CURR_MAX_LIMIT_LO);
 
-    cur_position = registers_read_word(REG_POSITION_HI, REG_POSITION_LO);
-    seek_position = registers_read_word(REG_SEEK_POSITION_HI, REG_SEEK_POSITION_LO);
+    cur_position = (int8_t) registers_read_word(REG_POSITION_HI, REG_POSITION_LO);
+    seek_position = (int8_t) registers_read_word(REG_SEEK_POSITION_HI, REG_SEEK_POSITION_LO);
 
     // Check the voltage is not below or above the set voltage. Ignore if 0
     // NOTE: This would be a good place to alter the pwm of the motor to output the same voltage
@@ -170,9 +174,14 @@ void alert_check(void)
     }
 
     // Check to see if the position has reached the destination
+    int8_t deadband = (int8_t) banks_read_byte(POS_PID_BANK, REG_PID_DEADBAND);
+    if ((abs(seek_position - cur_position) <= deadband) &&
+        (alert_is_enabled(ALERT_POSITION_REACHED)))
+/*
     if (((cur_position > seek_position + 2) ||
        (cur_position < seek_position - 2)) &&
        (alert_is_enabled(ALERT_POSITION_REACHED)))
+*/
     {
         alert_setbit(ALERT_POSITION_REACHED);
         alert_int_high(ALERT_POSITION_REACHED);
